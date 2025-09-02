@@ -21,6 +21,7 @@ jobs:
     name: Terraform Plan
     runs-on: self-hosted
     needs: TerraformInit
+    environment: sunil
     steps:
     - name: Azure Login   
       uses: Azure/login@v2.3.0
