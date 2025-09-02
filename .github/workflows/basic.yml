@@ -5,7 +5,7 @@ on: [push]
 jobs:
   TerraformInit:
     name: Terraform Init
-    runs-on: ubuntu-latest  #self-hosted
+    runs-on: self-hosted
     steps:
     - name: Checkout
       uses: actions/checkout@v5.0.0
@@ -23,7 +23,7 @@ jobs:
 
   TerraformPlan:
     name: Terraform Plan
-    runs-on: ubuntu-latest #self-hosted
+    runs-on: self-hosted
     needs: TerraformInit
     environment: sunil
     steps:
