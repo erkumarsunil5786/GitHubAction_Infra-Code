@@ -1,6 +1,6 @@
 name: Basic RG Workflow
 
-on: workflow_dispatch
+on: [push]
 
 jobs:
   TerraformInit:
@@ -16,8 +16,7 @@ jobs:
     - name: Terraform init 
       run: Terraform init
       working-directory: Parent_Module
- 
-jobs:
+
   TerraformPlan:
     name: Terraform Plan
     runs-on: self-hosted
