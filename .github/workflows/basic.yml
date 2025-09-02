@@ -1,46 +1,76 @@
-name: Basic RG Workflow
+# name: Basic RG Workflow
 
-on: [push]
+# on: [push]
 
-jobs:
-  TerraformInit:
-    name: Terraform Init
-    runs-on: ubuntu-latest #self-hosted
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v5.0.0
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
-      with:
-        terraform_version:  1.11.4 #1.5.7 
-    - name: Azure Login   
-      uses: Azure/login@v2.3.0
-      with:
-        creds: ${{ secrets.AZURECREDENTIAL }}
-    - name: Terraform init 
-      run: terraform init
-      working-directory: Parent_Module
+# jobs:
+#   TerraformInit:
+#     name: Terraform Init
+#     runs-on: ubuntu-latest #self-hosted
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v5.0.0
+#     - name: Setup Terraform
+#       uses: hashicorp/setup-terraform@v3
+#       with:
+#         terraform_version:  1.11.4 #1.5.7 
+#     - name: Azure Login   
+#       uses: Azure/login@v2.3.0
+#       with:
+#         creds: ${{ secrets.AZURECREDENTIAL }}
+#     - name: Terraform init 
+#       run: terraform init
+#       working-directory: Parent_Module
 
-  TerraformPlan:
-    name: Terraform Plan
-    runs-on: self-hosted
-    needs: TerraformInit
-    environment: sunil
-    steps:
-    - name: Azure Login   
-      uses: Azure/login@v2.3.0
-      with:
-       creds: ${{ secrets.AZURECREDENTIAL }}
-    - name: Terraform Init
-      run: Terraform init
-      working-directory: Parent_Module
+#   TerraformPlan:
+#     name: Terraform Plan
+#     runs-on: self-hosted
+#     needs: TerraformInit
+#     environment: sunil
+#     steps:
+#     - name: Azure Login   
+#       uses: Azure/login@v2.3.0
+#       with:
+#        creds: ${{ secrets.AZURECREDENTIAL }}
+#     - name: Terraform Init
+#       run: Terraform init
+#       working-directory: Parent_Module
 
-    - name: Terraform Apply
-      run: Terraform apply --auto-approve
-      working-directory: Parent_Module
+#     - name: Terraform Apply
+#       run: Terraform apply --auto-approve
+#       working-directory: Parent_Module
       
       
- 
+ name: Deploy Terraform to Azure
+
+ on:
+  push:
+    branches:
+      - main          # jab main branch pe push ho
+      - feature/*     # jab feature branches pe push ho
+
+
+ jobs:
+  terraform-init-plan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURECREDENTIAL }}
+          
+          
+      - name: Terraform Init
+        run: terraform init
+
 
           
           
