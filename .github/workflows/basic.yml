@@ -17,8 +17,23 @@ jobs:
       run: Terraform init
       working-directory: Parent_Module
  
+jobs:
+  TerraformPlan:
+    name: Terraform Plan
+    runs-on: self-hosted
+    needs: TerraformInit
+    steps:
+    - name: Azure Login   
+      uses: Azure/login@v2.3.0
+      with:
+       creds: ${{ secrets.AZURECREDENTIAL }}
+    - name: Terraform Init
+      run: Terraform init
+      working-directory: Parent_Module
 
-      
+    - name: Terraform Apply
+      run: Terraform apply --auto-approve
+      working-directory: Parent_Module
       
  
 
