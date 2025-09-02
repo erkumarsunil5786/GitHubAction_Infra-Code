@@ -50,7 +50,7 @@
 
 
  jobs:
-  terraform-init-plan:
+  terraforminitplan:
     runs-on: ubuntu-latest
 
     steps:
