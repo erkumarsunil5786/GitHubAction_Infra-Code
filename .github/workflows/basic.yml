@@ -70,7 +70,7 @@
           
       - name: Terraform Init
         run: terraform init
-
+        working-directory: Parent_Module
 
           
           
