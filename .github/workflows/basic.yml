@@ -18,7 +18,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURECREDENTIAL }}
     - name: Terraform init 
-      run: Terraform init
+      run: terraform init
       working-directory: Parent_Module
 
   TerraformPlan:
